@@ -20,6 +20,10 @@ Currently, there are up to 8 melodies available, and each can be configured with
 
 This is the simplest mode. When a trigger telegram with a value of `1` is received, the melody will play once. If the trigger telegram has a value of `0`, it will be ignored, and no action will be taken.
 
+![Trigger Diagram](img/trigger.png)
+
+**Configuration**
+
 ![Trigger](img/ets_configuration_trigger.png)
 
 ---
@@ -27,6 +31,10 @@ This is the simplest mode. When a trigger telegram with a value of `1` is receiv
 ### Switch
 
 In this mode, when the Group Object receives a "start" command, the melody will play continuously. The melody will keep playing until a "stop" command is received, at which point it will stop.
+
+![Switch Diagram](img/switch.png)
+
+**Configuration**
 
 ![Switch](img/ets_configuration_switch.png)
 
@@ -37,6 +45,8 @@ In this mode, when the Group Object receives a "start" command, the melody will 
 This mode allows you to set an upper and lower temperature threshold. The venting monitor is **disabled** when the temperature is within this range, helping to avoid unnecessary alerts.
 
 This feature is particularly useful in scenarios like extreme summer heat or winter conditions when ventilation may not be exceeded. 
+
+![Venting Monitor Diagram](img/venting_mode.png)
 
 **Configuration Requirements**:
 - Connect the external temperature sensor Group Object.
