@@ -39,7 +39,7 @@ int ArduinoTimer::convertMode(const enum TimerMode &mode)
             val = 0;
             break;
         case TimerMode::RECURRING:
-            val = -1 * (this->timeout_us);
+            val = -1 * (int)this->timeout_us;
             break;
         default:
             logWarning("invalid Mode %d", mode);

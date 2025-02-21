@@ -6,6 +6,7 @@ using namespace drivers::logger;
 
 ArduinoLogger::ArduinoLogger()
 {
+    memset(msgBuffer, 0, sizeof(msgBuffer));
 }
 
 void ArduinoLogger::init(enum LOGLEVEL level, bool blockTillSerialConnected)

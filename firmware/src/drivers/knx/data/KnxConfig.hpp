@@ -27,7 +27,7 @@ struct ApplicationVersion {
 class KnxConfig
 {
 public:
-    KnxConfig(KnxFacade<RP2040ArduinoPlatform, Bau07B0> &knx) : knx(knx) {};
+    explicit KnxConfig(KnxFacade<RP2040ArduinoPlatform, Bau07B0> &knx) : knx(knx) {};
     ~KnxConfig() = default;
 
     std::list<MelodyConfig> getMelodyConfigs()
@@ -39,7 +39,7 @@ public:
         switch(ParamAPP_Number_Melodies) {
             case 8: {
 
-                melody.rtttl = (const char *)ParamAPP_Melody_8;
+                melody.rtttl = reinterpret_cast<const char *>(ParamAPP_Melody_8);
                 melody.pause_sec = ParamAPP_Melody_8_Melody_Pause;
                 config.melody = melody;
 
@@ -69,7 +69,7 @@ public:
             }
             case 7: {
 
-                melody.rtttl = (const char *)ParamAPP_Melody_7;
+                melody.rtttl = reinterpret_cast<const char *>(ParamAPP_Melody_7);
                 melody.pause_sec = ParamAPP_Melody_7_Melody_Pause;
                 config.melody = melody;
 
@@ -99,7 +99,7 @@ public:
             }
             case 6: {
 
-                melody.rtttl = (const char *)ParamAPP_Melody_6;
+                melody.rtttl = reinterpret_cast<const char *>(ParamAPP_Melody_6);
                 melody.pause_sec = ParamAPP_Melody_6_Melody_Pause;
                 config.melody = melody;
 
@@ -129,7 +129,7 @@ public:
             }
             case 5: {
 
-                melody.rtttl = (const char *)ParamAPP_Melody_5;
+                melody.rtttl = reinterpret_cast<const char *>(ParamAPP_Melody_5);
                 melody.pause_sec = ParamAPP_Melody_5_Melody_Pause;
                 config.melody = melody;
 
@@ -160,7 +160,7 @@ public:
 
             case 4: {
 
-                melody.rtttl = (const char *)ParamAPP_Melody_4;
+                melody.rtttl = reinterpret_cast<const char *>(ParamAPP_Melody_4);
                 melody.pause_sec = ParamAPP_Melody_4_Melody_Pause;
                 config.melody = melody;
 
@@ -190,7 +190,7 @@ public:
             }
 
             case 3: {
-                melody.rtttl = (const char *)ParamAPP_Melody_3;
+                melody.rtttl = reinterpret_cast<const char *>(ParamAPP_Melody_3);
                 melody.pause_sec = ParamAPP_Melody_3_Melody_Pause;
                 config.melody = melody;
 
@@ -219,7 +219,7 @@ public:
             }
 
             case 2: {
-                melody.rtttl = (const char *)ParamAPP_Melody_2;
+                melody.rtttl = reinterpret_cast<const char *>(ParamAPP_Melody_2);
                 melody.pause_sec = ParamAPP_Melody_2_Melody_Pause;
                 config.melody = melody;
 
@@ -248,7 +248,7 @@ public:
             }
 
             case 1: {
-                melody.rtttl = (const char *)ParamAPP_Melody_1;
+                melody.rtttl = reinterpret_cast<const char *>(ParamAPP_Melody_1);
                 melody.pause_sec = ParamAPP_Melody_1_Melody_Pause;
                 config.melody = melody;
 

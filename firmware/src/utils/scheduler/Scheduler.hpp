@@ -12,7 +12,7 @@ namespace utils {
 class Scheduler
 {
 public:
-    Scheduler(std::shared_ptr<ISchedulerStrategy> strategy);
+    explicit Scheduler(std::shared_ptr<ISchedulerStrategy> strategy);
     ~Scheduler() = default;
 
     static void process();

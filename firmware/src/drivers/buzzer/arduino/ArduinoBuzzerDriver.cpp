@@ -10,9 +10,9 @@ using namespace drivers::logger;
 
 ArduinoBuzzerDriver::ArduinoBuzzerDriver(const drivers::gpio::GpioConfig &gpio,
                                          std::shared_ptr<drivers::ITimerDriverFactory> timerFactory) :
-    gpio(gpio)
+    gpio(gpio),
+    timer(timerFactory->getTimer())
 {
-    timer = timerFactory->getTimer();
     timer->setupInterruptHandler(timerInterrupt, this);
 }
 
@@ -63,7 +63,7 @@ void ArduinoBuzzerDriver::timerInterrupt(void *arg)
     }
 
     bool isStillPlaying = updatePlayRtttl();
-    if (!isStillPlaying && instance) {
+    if (!isStillPlaying) {
         instance->stop();
     }
 

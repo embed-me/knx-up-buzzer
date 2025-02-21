@@ -19,7 +19,7 @@ public:
 
     virtual void play(const drivers::knx::Melody &melody) override;
     virtual void registerBuzzerChangeObserver(IBuzzerChangeObserver *observer) override;
-    virtual bool isPlaying();
+    virtual bool isPlaying() override;
     virtual void stop() override;
 
 private:

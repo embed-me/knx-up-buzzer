@@ -16,9 +16,9 @@ public:
     ArduinoTimer();
     ~ArduinoTimer() = default;
 
-    virtual void start(uint32_t timeout_us, enum TimerMode mode);
-    virtual void stop();
-    virtual void setupInterruptHandler(std::function<void(void*)> handler, void *arg);
+    virtual void start(uint32_t timeout_us, enum TimerMode mode) override;
+    virtual void stop() override;
+    virtual void setupInterruptHandler(std::function<void(void*)> handler, void *arg) override;
 private:
     int convertMode(const enum TimerMode &mode);
     static int64_t interruptHandler(alarm_id_t id, void *user_data);

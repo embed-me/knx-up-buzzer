@@ -10,11 +10,11 @@ namespace drivers::knx {
 class ThelsingKnxDriver : public IKnxDriver
 {
 public:
-    ThelsingKnxDriver(std::shared_ptr<drivers::ITimerDriverFactory> timerFactory);
+    explicit ThelsingKnxDriver(std::shared_ptr<drivers::ITimerDriverFactory> timerFactory);
     ~ThelsingKnxDriver() = default;
 
     virtual bool init() override;
-    std::string getApplicationVersion();
+    std::string getApplicationVersion() override;
     virtual KnxConfig &getKnxConfig() override;
     virtual void register_cb(int ko_number, std::function<void(GroupObject&)>) override;
     virtual void setProgmodeChangeCallback(std::function<void(bool)> callback) override;

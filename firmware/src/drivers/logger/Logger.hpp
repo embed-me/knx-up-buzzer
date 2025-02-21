@@ -6,8 +6,6 @@
 
 #include "ILogger.hpp"
 #include "DummyLogger.hpp"
-#include "arduino/ArduinoLogger.hpp"
-
 
 namespace drivers::logger {
 

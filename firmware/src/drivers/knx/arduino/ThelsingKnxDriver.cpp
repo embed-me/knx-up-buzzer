@@ -11,11 +11,11 @@ ThelsingKnxDriver* ThelsingKnxDriver::instance = nullptr;
 
 ThelsingKnxDriver::ThelsingKnxDriver(std::shared_ptr<drivers::ITimerDriverFactory> timerFactory) : 
     stack(KnxFacade<RP2040ArduinoPlatform, Bau07B0>()), 
-    config(KnxConfig(stack))
+    config(KnxConfig(stack)),
+    timer(timerFactory->getTimer())
 {
     instance = this;
-    
-    timer = timerFactory->getTimer();
+
     timer->setupInterruptHandler(loop, this);
 }
 

@@ -51,7 +51,11 @@ struct drivers::gpio::GpioConfig buzzerPin = {
 
 /* Drivers */
 std::shared_ptr<drivers::IDriverFactory> driverFactory = std::make_shared<drivers::ArduinoDriverFactory>();
-std::shared_ptr<drivers::logger::ILogger> logger = driverFactory->getLoggerDriver();
+#ifdef KNX_UP_BUZZER_DISABLE_LOGGING
+    std::shared_ptr<drivers::logger::ILogger> logger = nullptr;
+#else
+    std::shared_ptr<drivers::logger::ILogger> logger = driverFactory->getLoggerDriver();
+#endif
 std::shared_ptr<drivers::gpio::IGpioDriver> gpio = driverFactory->getGpioDriver();
 std::shared_ptr<drivers::audio::IBuzzerDriver> buzzer = driverFactory->getBuzzerDriver(buzzerPin);
 std::shared_ptr<drivers::knx::IKnxDriver> knx = driverFactory->getKnxDriver();
@@ -97,8 +101,8 @@ void buttonInterrupt()
 
 /* Core 0 */
 void setup() {
-    drivers::logger::Logger::setLogger(logger);
-    logger->init(drivers::logger::LOGLEVEL::LOGLEVEL_TRACE, false);
+    //drivers::logger::Logger::setLogger(logger);
+    //logger->init(drivers::logger::LOGLEVEL::LOGLEVEL_TRACE, true);
 
     gpio->setConfig(knxProgLed);
     gpio->setConfig(knxProgButton);

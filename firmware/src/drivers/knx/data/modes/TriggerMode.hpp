@@ -8,7 +8,7 @@ namespace drivers::knx {
 class TriggerMode : public IMode
 {
 public:
-    TriggerMode(uint16_t ko);
+    explicit TriggerMode(uint16_t ko);
     ~TriggerMode() = default;
 
     virtual enum ModeType getType() const override;

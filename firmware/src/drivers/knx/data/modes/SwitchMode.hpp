@@ -8,7 +8,7 @@ namespace drivers::knx {
 class SwitchMode : public IMode
 {
 public:
-    SwitchMode(uint16_t ko);
+    explicit SwitchMode(uint16_t ko);
     ~SwitchMode() = default;
 
     virtual enum ModeType getType() const override;

@@ -9,12 +9,11 @@ VentingMonitorBehaviour::VentingMonitorBehaviour(
     std::shared_ptr<drivers::audio::IBuzzerDriver> buzzer) :
     knxDriver(knxDriver),
     timerFactory(timerFactory),
-    BehaviourBase(buzzer)
+    BehaviourBase(buzzer),
+    ventingTimer(timerFactory->getTimer()),
+    melodyTimer(timerFactory->getTimer())
 {
-    ventingTimer = timerFactory->getTimer();
     ventingTimer->setupInterruptHandler(ventingTimerInterrupt, this);
-
-    melodyTimer = timerFactory->getTimer();
     melodyTimer->setupInterruptHandler(melodyTimerInterrupt, this);
 }
 

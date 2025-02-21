@@ -11,9 +11,9 @@ SwitchBehaviour::SwitchBehaviour(
     std::shared_ptr<drivers::audio::IBuzzerDriver> buzzer) :
     knxDriver(knxDriver),
     timerFactory(timerFactory),
-    BehaviourBase(buzzer)
+    BehaviourBase(buzzer),
+    timer(timerFactory->getTimer())
 {
-    timer = timerFactory->getTimer();
     timer->setupInterruptHandler(timerInterrupt, this);
 }
 
