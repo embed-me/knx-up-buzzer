@@ -70,9 +70,11 @@ void ArduinoTimer::start(uint32_t timeout_us, enum TimerMode mode)
 
 void ArduinoTimer::stop()
 {
-    logTrace("stopping timer");
-    cancel_alarm(alarm_id);
-    alarm_id = 0;
+    if (alarm_id != 0) {
+        logTrace("stopping timer");
+        cancel_alarm(alarm_id);
+        alarm_id = 0;
+    }
 }
 
 void ArduinoTimer::setupInterruptHandler(std::function<void(void *)> handler, void *arg)

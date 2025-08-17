@@ -64,16 +64,13 @@ void ArduinoBuzzerDriver::timerInterrupt(void *arg)
 
     bool isStillPlaying = updatePlayRtttl();
     if (!isStillPlaying) {
-        instance->stop();
+        // TODO: This is not ideal, the timer might fire multiple times until
+        // the scheduler processes the timer->stop(), therefore resulting in multiple
+        // scheduled stops.
+        utils::Scheduler::schedule([instance](void*) {
+            if (instance) {
+                instance->stop();
+            }
+        });
     }
-
-    // TODO 100 us recurring means that there are multiple interrupts enqueued 
-    // already when we try to stop the interrupt, either handle it in ISR context
-    // or ensure that only 1 will be scheduled!    
-    // utils::Scheduler::schedule([instance](void*) {
-    //     bool isStillPlaying = updatePlayRtttl();
-    //     if (!isStillPlaying && instance && instance->isRunning) {
-    //         instance->stop();
-    //     }
-    // });
 }
