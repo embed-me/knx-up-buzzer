@@ -6,6 +6,7 @@
 #include "IBuzzerDriverFactory.hpp"
 #include "IKnxDriverFactory.hpp"
 #include "logger/ILogger.hpp"
+#include "watchdog/IWatchdogDriver.hpp"
 
 namespace drivers {
 
@@ -18,6 +19,7 @@ public:
     ~IDriverFactory() = default;
 
     virtual std::shared_ptr<logger::ILogger> getLoggerDriver() = 0;
+    virtual std::shared_ptr<watchdog::IWatchdogDriver> getWatchdogDriver() = 0;
 };
 
 }

@@ -15,6 +15,8 @@
 
 #include "drivers/timer/ITimer.hpp"
 
+#include "drivers/watchdog/IWatchdogDriver.hpp"
+
 #include "utils/scheduler/Scheduler.hpp"
 #include "utils/scheduler/strategy/ISchedulerStrategy.hpp"
 #include "utils/scheduler/strategy/simple/SimpleScheduler.hpp"
@@ -59,6 +61,7 @@ std::shared_ptr<drivers::IDriverFactory> driverFactory = std::make_shared<driver
 std::shared_ptr<drivers::gpio::IGpioDriver> gpio = driverFactory->getGpioDriver();
 std::shared_ptr<drivers::audio::IBuzzerDriver> buzzer = driverFactory->getBuzzerDriver(buzzerPin);
 std::shared_ptr<drivers::knx::IKnxDriver> knx = driverFactory->getKnxDriver();
+std::shared_ptr<drivers::watchdog::IWatchdogDriver> watchdog = driverFactory->getWatchdogDriver();
 
 /* Utilities */
 std::shared_ptr<utils::ISchedulerStrategy> schedulerStrategy = std::make_shared<utils::SimpleScheduler>();
@@ -70,10 +73,9 @@ std::shared_ptr<application::behaviour::BehaviourFactory> behaviourFactory = std
 
 std::shared_ptr<application::MelodyController> controller = std::make_shared<application::MelodyController>(priorityStrategy, behaviourFactory);
 
-
+#define WDT_TIMEOUT_MS 8000
 #define PROG_BTN_PRESS_MIN_MILLIS 50
 #define PROG_BTN_PRESS_MAX_MILLIS 500
-
 
 void buttonPressHandler(void *arg) 
 {
@@ -104,6 +106,8 @@ void setup() {
     //drivers::logger::Logger::setLogger(logger);
     //logger->init(drivers::logger::LOGLEVEL::LOGLEVEL_TRACE, true);
 
+    watchdog->enable(WDT_TIMEOUT_MS);
+
     gpio->setConfig(knxProgLed);
     gpio->setConfig(knxProgButton);
     gpio->setConfig(buzzerPin);
@@ -126,6 +130,7 @@ void setup() {
 }
 
 void loop() {
+    watchdog->feed();
     scheduler->process();
 }
 

@@ -5,6 +5,7 @@
 #include "buzzer/arduino/ArduinoBuzzerDriver.hpp"
 #include "logger/arduino/ArduinoLogger.hpp"
 #include "knx/arduino/ThelsingKnxDriver.hpp"
+#include "watchdog/arduino/ArduinoWatchdogDriver.hpp"
 
 #include "logger/Logger.hpp"
 
@@ -47,4 +48,11 @@ std::shared_ptr<knx::IKnxDriver> ArduinoDriverFactory::getKnxDriver()
     logTrace("creating new Knx Driver");
     auto knx = std::make_shared<knx::ThelsingKnxDriver>(shared_from_this());
     return knx;
+}
+
+std::shared_ptr<watchdog::IWatchdogDriver> ArduinoDriverFactory::getWatchdogDriver()
+{
+    logTrace("creating new Watchdog Driver");
+    auto watchdog = std::make_shared<watchdog::ArduinoWatchdogDriver>();
+    return watchdog;
 }

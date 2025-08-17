@@ -6,10 +6,10 @@
 #include "timer/ITimer.hpp"
 #include "gpio/IGpioDriver.hpp"
 #include "buzzer/IBuzzerDriver.hpp"
+#include "watchdog/IWatchdogDriver.hpp"
 
 #include "logger/ILogger.hpp"
 #include "gpio/GpioConfig.hpp"
-
 
 #include <memory>
 
@@ -27,6 +27,7 @@ public:
     virtual std::shared_ptr<logger::ILogger> getLoggerDriver() override;
     virtual std::shared_ptr<audio::IBuzzerDriver> getBuzzerDriver(const drivers::gpio::GpioConfig &gpio) override;
     virtual std::shared_ptr<knx::IKnxDriver> getKnxDriver() override;
+    virtual std::shared_ptr<watchdog::IWatchdogDriver> getWatchdogDriver() override;
 private:
 };
 
