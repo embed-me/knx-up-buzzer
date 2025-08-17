@@ -8,14 +8,24 @@ SimpleScheduler::SimpleScheduler()
 
 void SimpleScheduler::process()
 {
-    while (!queue.empty()) {
+    uint8_t processed = 0;
+    bool isMaxPerCycleLimitReached = false;
+    
+    while (!queue.empty() && !isMaxPerCycleLimitReached) {
         std::function<void(void*)> work = queue.front();
-        work(nullptr);
+        if (work) {
+            work(nullptr);
+        }
         queue.pop();
+        
+        isMaxPerCycleLimitReached = ((processed++) >= MAX_PER_CYCLE_LIMIT);
     }
 }
 
 void SimpleScheduler::schedule(std::function<void(void*)> work)
 {
-    queue.push(work);
+    bool isSpaceInQueue = (queue.size() < MAX_QUEUE_SIZE);
+    if (work && isSpaceInQueue) {
+        queue.push(work);
+    }
 }

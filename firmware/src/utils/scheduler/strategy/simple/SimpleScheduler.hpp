@@ -5,6 +5,7 @@
 
 #include <queue>
 #include <functional>
+#include <stdint.h>
 
 namespace utils {
 
@@ -15,9 +16,11 @@ public:
     ~SimpleScheduler() = default;
 
     virtual void process() override;
-    virtual void schedule(std::function<void(void*)>) override;
+    virtual void schedule(std::function<void(void*)> work) override;
 
 private:
+    static const uint8_t MAX_QUEUE_SIZE = 100;
+    static const uint8_t MAX_PER_CYCLE_LIMIT = 10;
     std::queue<std::function<void(void*)>> queue;
 };
 
