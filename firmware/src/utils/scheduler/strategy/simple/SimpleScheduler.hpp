@@ -7,6 +7,8 @@
 #include <functional>
 #include <stdint.h>
 
+#include "pico/critical_section.h"
+
 namespace utils {
 
 class SimpleScheduler : public ISchedulerStrategy
@@ -22,6 +24,8 @@ private:
     static const uint8_t MAX_QUEUE_SIZE = 100;
     static const uint8_t MAX_PER_CYCLE_LIMIT = 10;
     std::queue<std::function<void(void*)>> queue;
+
+    critical_section_t _cs;
 };
 
 }

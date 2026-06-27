@@ -22,6 +22,7 @@ void ArduinoBuzzerDriver::play(const drivers::knx::Melody &melody)
     getRtttlName(melody.rtttl, melodyName, sizeof(melodyName)-1);
     logInfo("Playing Melody %s",  melodyName);
     
+    stopScheduled = false;
     startPlayRtttl(gpio.pin, melody.rtttl, NULL);
     timer->start(100, drivers::timer::TimerMode::RECURRING);
 
@@ -44,6 +45,7 @@ void ArduinoBuzzerDriver::stop()
 
     stopPlayRtttl();
     timer->stop();
+    stopScheduled = false;
     
     notifyObservers(BuzzerStatus::STATUS_OFF);
 }
@@ -62,15 +64,19 @@ void ArduinoBuzzerDriver::timerInterrupt(void *arg)
         return;
     }
 
-    bool isStillPlaying = updatePlayRtttl();
-    if (!isStillPlaying) {
-        // TODO: This is not ideal, the timer might fire multiple times until
-        // the scheduler processes the timer->stop(), therefore resulting in multiple
-        // scheduled stops.
-        utils::Scheduler::schedule([instance](void*) {
-            if (instance) {
-                instance->stop();
-            }
-        });
-    }
+    utils::Scheduler::schedule([instance](void*) {
+        if (!instance) {
+            return;
+        }
+
+        bool isStillPlaying = updatePlayRtttl();
+        if (isStillPlaying) {
+            return;
+        }
+
+        if (!instance->stopScheduled) {
+            instance->stopScheduled = true;
+            instance->stop();
+        }
+    });
 }

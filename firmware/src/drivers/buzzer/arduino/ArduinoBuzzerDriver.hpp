@@ -31,6 +31,8 @@ private:
     const drivers::gpio::GpioConfig &gpio;
 
     IBuzzerChangeObserver *observer = nullptr;
+
+    bool stopScheduled = false;
 };
 
 }
