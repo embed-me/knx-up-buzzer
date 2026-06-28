@@ -2,20 +2,30 @@
 
 To ensure the application functions correctly, the product database must be imported into **ETS**, the physical address must be set, and the application must be written to the device.
 
+## Setup
 
+```bash
+pip install platformio
+```
 
-## Building
+## Build
 
-The firmware is built using **PlatformIO**, which provides an easy setup for embedded development. While it is recommended to use **Visual Studio Code (VS Code)**, other IDEs can also be used.
+```bash
+pio run -e release
+```
 
-### Steps to Build with VS Code
+## Unit Tests
 
-1. Open this directory in VS Code.
-2. Trust the project when prompted.
-3. VS Code will automatically install the required extensions for PlatformIO.
-4. Build the firmware using the PlatformIO interface.
+```bash
+pio test -e test
+```
 
+## Static Code Analysis
 
+```bash
+sudo apt-get install -y cppcheck
+pio check -e check
+```
 
 ## Flashing
 
@@ -27,8 +37,6 @@ The **RP2040 UF2 ROM bootloader** is the recommended method for flashing the fir
 2. Press and hold the `Bootsel` button while pressing and releasing the `Reset` button.
 3. A new USB drive will appear on your computer.
 4. Drag and drop the file `.pio/build/release/firmware.uf2` onto the USB drive.
-
-
 
 ## Debugging
 
