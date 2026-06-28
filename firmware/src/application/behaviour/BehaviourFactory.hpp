@@ -24,7 +24,7 @@ public:
                      std::shared_ptr<drivers::audio::IBuzzerDriver> buzzer);
     ~BehaviourFactory() = default;
 
-    std::optional<std::shared_ptr<IBehaviour>> getBehaviour(struct drivers::knx::MelodyConfig melodyCfg);
+    virtual std::optional<std::shared_ptr<IBehaviour>> getBehaviour(struct drivers::knx::MelodyConfig melodyCfg);
 
 private:
     std::shared_ptr<drivers::knx::IKnxDriver> knxDriver = nullptr; 
