@@ -1,5 +1,7 @@
 # 🎵 KNX UP-Buzzer Project
 
+![Pipeline](https://github.com/embed-me/knx-up-buzzer/actions/workflows/pipeline.yml/badge.svg)
+
 The **UP-Buzzer** is a custom KNX-compatible buzzer project designed to fill the gap in the market for simple and functional KNX buzzers. By combining existing open-source hardware with custom components, this project ensures flexibility, ease of use, and extensibility.
 
 
