@@ -17,12 +17,14 @@ void SimpleScheduler::process()
         std::function<void(void*)> work;
 
         critical_section_enter_blocking(&_cs);
-        if (queue.empty()) {
+        if (count == 0) {
             critical_section_exit(&_cs);
             break;
         }
-        work = queue.front();
-        queue.pop();
+        work = std::move(queue[head]);
+        queue[head] = nullptr;
+        head = (head + 1) % MAX_QUEUE_SIZE;
+        count--;
         critical_section_exit(&_cs);
 
         if (work) {
@@ -39,9 +41,10 @@ void SimpleScheduler::schedule(std::function<void(void*)> work)
     }
 
     critical_section_enter_blocking(&_cs);
-    bool isSpaceInQueue = (queue.size() < MAX_QUEUE_SIZE);
+    bool isSpaceInQueue = (count < MAX_QUEUE_SIZE);
     if (isSpaceInQueue) {
-        queue.push(work);
+        queue[(head + count) % MAX_QUEUE_SIZE] = work;
+        count++;
     } else {
         logError("Scheduler queue full (%d items), discarding task", MAX_QUEUE_SIZE);
     }
